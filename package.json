@@ -1,5 +1,5 @@
 {
-  "name": "chardlau-react-template",
+  "name": "chardlau-react-scaffold",
   "author": {
     "name": "Chard Lau",
     "email": "chardlau@outlook.com"
@@ -42,5 +42,10 @@
     "react-dom": "^16.13.0",
     "react-hot-loader": "^4.12.20",
     "react-router-dom": "^5.1.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:chardlau/react-scaffold.git"
+  },
+  "license": "MIT"
 }
