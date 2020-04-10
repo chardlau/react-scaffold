@@ -1,15 +1,12 @@
-import React, {Component, useState} from 'react';
+import {hot} from 'react-hot-loader/root';
+import React, {lazy, Component, useState, Suspense} from 'react';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
-import {hot} from 'react-hot-loader';
-import loadable from '@loadable/component';
-
 import Avatar from './assets/avatar.jpeg';
-
 import styles from './styles/App.m.less';
 import './styles/App.css';
 
 import Test from './components/Test';
-const Home = loadable(() => import(/* webpackChunkName: 'home' */'./routes/Home'));
+const Home = lazy(() => import(/* webpackChunkName: 'home' */ './routes/Home'));
 
 function Demo(props) {
   const [open, setOpen] = useState(false);
@@ -63,7 +60,10 @@ class App extends Component {
           </ul>
 
           <Switch>
-            <Route path="/" exact component={Home}>
+            <Route path="/" exact>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Home />
+              </Suspense>
             </Route>
             <Route path="/post">
               <Test value="Post" />
@@ -82,4 +82,4 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App);
+export default hot(App);

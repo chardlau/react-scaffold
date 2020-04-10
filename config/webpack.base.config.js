@@ -6,29 +6,21 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const isDevelopment = process.env.NODE_ENV === 'development';
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Configuration of mini-css-extract-plugin loader
-const miniCssLoader = {
-  loader: MiniCssExtractPlugin.loader,
-  options: {
-    hmr: isDevelopment,
-    reloadAll: true
-  }
-};
-// Options for mini-css-extract-plugin
-const miniCssPluginOptions = {
-  filename: isDevelopment ? '[name].css' : '[name].[hash:6].css',
-  chunkFilename: isDevelopment ? '[name].css' : '[name].[hash:6].css',
-};
+// Use of mini-css-extract-plugin loader to extra css into files in production, otherwise use style-loader
+const extraCssLoader = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
 
 const plugins = [
   // Inject assets into index.html automatically
   new HtmlWebpackPlugin({ template: path.resolve(__dirname, '../template/index.html') }),
-  // Extract css into files
-  new MiniCssExtractPlugin(miniCssPluginOptions)
 ];
 if (isProduction) {
   // Cleaning up the '/dist' folder if currently is production build
   plugins.unshift(new CleanWebpackPlugin());
+  // Extract css into files
+  plugins.push(new MiniCssExtractPlugin({
+    filename: '[name].[hash:6].css',
+    chunkFilename: '[name].[hash:6].css'
+  }))
 }
 
 module.exports = {
@@ -49,14 +41,17 @@ module.exports = {
             ],
             '@babel/preset-react'
           ],
-          plugins: ['@babel/plugin-proposal-class-properties']
+          plugins: [
+            '@babel/plugin-proposal-class-properties',
+            'react-hot-loader/babel'
+          ]
         }
       },
       // module css
       {
         test: /\.m.css$/,
         use: [
-          miniCssLoader,
+          extraCssLoader,
           {
             loader: 'css-loader',
             options: {
@@ -73,7 +68,7 @@ module.exports = {
         test: /\.css$/,
         exclude: /\.m.css$/,
         use: [
-          miniCssLoader,
+          extraCssLoader,
           'css-loader'
         ]
       },
@@ -81,7 +76,7 @@ module.exports = {
       {
         test: /\.m.less$/,
         use: [
-          miniCssLoader,
+          extraCssLoader,
           {
             loader: 'css-loader',
             options: {
@@ -99,7 +94,7 @@ module.exports = {
         test: /\.less$/,
         exclude: /\.m.less$/,
         use: [
-          miniCssLoader,
+          extraCssLoader,
           'css-loader',
           'less-loader'
         ]
