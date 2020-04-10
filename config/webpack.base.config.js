@@ -139,7 +139,7 @@ module.exports = {
       cacheGroups: {
         // Split react and react-dom into isolate chunk
         react: {
-          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|react-hot-loader)[\\/]/,
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom|@hot-loader|react-hot-loader)[\\/]/,
           name: 'react',
           chunks: 'all'
         }
