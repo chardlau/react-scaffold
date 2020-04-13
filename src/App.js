@@ -5,6 +5,7 @@ import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import Home from './routes/Home';
 import Post from './routes/Post';
 import About from './routes/About';
+import Loading from './components/Loading';
 
 import Avatar from './assets/avatar.jpeg';
 
@@ -31,7 +32,7 @@ function App() {
           <li><Link to="/about">About</Link></li>
         </ul>
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Switch>
             <Route path="/" exact>
               <Home />

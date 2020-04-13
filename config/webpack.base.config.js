@@ -1,4 +1,5 @@
 const path = require('path');
+const WebpackBar = require('webpackbar');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -10,6 +11,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 const extraCssLoader = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
 
 const plugins = [
+  // Progress bar for build
+  new WebpackBar(),
   // Inject assets into index.html automatically
   new HtmlWebpackPlugin({ template: path.resolve(__dirname, '../template/index.html') }),
 ];

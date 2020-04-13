@@ -10,6 +10,7 @@ module.exports = webpackMerge(baseConfig, {
     contentBase: path.join(__dirname, "dist"),
     port: 3000,
     publicPath: "/",
+    stats: 'errors-only',
     hotOnly: true,
     historyApiFallback: true,
     // proxy: {
