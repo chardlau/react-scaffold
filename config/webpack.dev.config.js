@@ -11,7 +11,7 @@ module.exports = webpackMerge(baseConfig, {
     port: 3000,
     publicPath: "/",
     stats: 'errors-only',
-    hotOnly: true,
+    hot: true,
     historyApiFallback: true,
     // proxy: {
     //   '/api': 'http://localhost:3000'
@@ -23,6 +23,6 @@ module.exports = webpackMerge(baseConfig, {
     }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(), // This will be add by webpack-dev-server automatically
   ]
 });
