@@ -1,3 +1,3 @@
-import React from 'react';
+import lazy from '../../utils/lazy';
 
-export default React.lazy(() => import(/* webpackChunkName: 'about' */ './About'));
+export default lazy(() => import(/* webpackChunkName: 'about' */ './About'));
